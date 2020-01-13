@@ -58,7 +58,7 @@ Recommends: ruby(rubygems) >= 2.7.6 rubygem(bigdecimal) >= 1.3.4
 Recommends: rubygem(did_you_mean) >= 1.2.0 rubygem(openssl) >= 2.1.0
 
 BuildRequires: autoconf gdbm-devel gmp-devel libffi-devel openssl-devel libyaml-devel readline-devel
-BuildRequires: procps git gcc systemtap-sdt-devel cmake multilib-rpm-config
+BuildRequires: procps git gcc systemtap-sdt-devel cmake
 
 %description
 Ruby is a fast and easy interpreted scripting language for object-oriented programming.
@@ -283,7 +283,6 @@ autoconf
 %install
 %make_install
 
-%multilib_fix_c_header --file %{_includedir}/%{name}/config.h
 sed -i 's/Version: \${ruby_version}/Version: 2.5.1/' %{buildroot}%{_libdir}/pkgconfig/%{name}.pc
 
 for cert in rubygems.global.ssl.fastly.net/DigiCertHighAssuranceEVRootCA.pem \
