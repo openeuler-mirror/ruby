@@ -58,7 +58,7 @@ Recommends: ruby(rubygems) >= 2.7.6 rubygem(bigdecimal) >= 1.3.4
 Recommends: rubygem(did_you_mean) >= 1.2.0 rubygem(openssl) >= 2.1.0
 
 BuildRequires: autoconf gdbm-devel gmp-devel libffi-devel openssl-devel libyaml-devel readline-devel
-BuildRequires: procps git gcc systemtap-sdt-devel cmake multilib-rpm-config
+BuildRequires: procps git gcc systemtap-sdt-devel cmake
 
 %description
 Ruby is a fast and easy interpreted scripting language for object-oriented programming.
@@ -283,7 +283,6 @@ autoconf
 %install
 %make_install
 
-%multilib_fix_c_header --file %{_includedir}/%{name}/config.h
 sed -i 's/Version: \${ruby_version}/Version: 2.5.1/' %{buildroot}%{_libdir}/pkgconfig/%{name}.pc
 
 for cert in rubygems.global.ssl.fastly.net/DigiCertHighAssuranceEVRootCA.pem \
@@ -401,17 +400,6 @@ touch abrt.rb
 make runruby TESTRUN_SCRIPT="--enable-gems %{SOURCE12}"
 make runruby TESTRUN_SCRIPT=%{SOURCE13}
 
-DISABLE_TESTS=""
-DISABLE_TESTS="$DISABLE_TESTS -n !/test_segv_\(setproctitle\|test\|loaded_features\)/"
-
-sed -i '/def test_mdns_each_address$/,/^  end$/ s/^/#/' test/resolv/test_mdns.rb
-
-DISABLE_TESTS="$DISABLE_TESTS -n !/test_\(add_certificate\|minmax_version\|options_disable_versions\|set_params_min_version\)/"
-DISABLE_TESTS="$DISABLE_TESTS -n !/test_do_not_allow_invalid_client_cert_auth_connection/"
-DISABLE_TESTS="$DISABLE_TESTS -n !/test_constants/"
-
-make check TESTS="-v $DISABLE_TESTS"
-
 %files
 %license BSDL COPYING GPL LEGAL
 %doc README.md NEWS
@@ -519,9 +507,9 @@ make check TESTS="-v $DISABLE_TESTS"
 %{_datadir}/ri
 %{_mandir}/man1/ri*
 %{_mandir}/man1/erb*
-%{_mandir}/man1/ruby*
 %{_mandir}/man1/irb.1*
 %{_mandir}/man1/rake.1*
+%{_mandir}/man1/ruby*
 
 %files -n rubygem-bigdecimal
 %{ruby_libdir}/bigdecimal
