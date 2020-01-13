@@ -400,17 +400,6 @@ touch abrt.rb
 make runruby TESTRUN_SCRIPT="--enable-gems %{SOURCE12}"
 make runruby TESTRUN_SCRIPT=%{SOURCE13}
 
-DISABLE_TESTS=""
-DISABLE_TESTS="$DISABLE_TESTS -n !/test_segv_\(setproctitle\|test\|loaded_features\)/"
-
-sed -i '/def test_mdns_each_address$/,/^  end$/ s/^/#/' test/resolv/test_mdns.rb
-
-DISABLE_TESTS="$DISABLE_TESTS -n !/test_\(add_certificate\|minmax_version\|options_disable_versions\|set_params_min_version\)/"
-DISABLE_TESTS="$DISABLE_TESTS -n !/test_do_not_allow_invalid_client_cert_auth_connection/"
-DISABLE_TESTS="$DISABLE_TESTS -n !/test_constants/"
-
-make check TESTS="-v $DISABLE_TESTS"
-
 %files
 %license BSDL COPYING GPL LEGAL
 %doc README.md NEWS
@@ -518,9 +507,9 @@ make check TESTS="-v $DISABLE_TESTS"
 %{_datadir}/ri
 %{_mandir}/man1/ri*
 %{_mandir}/man1/erb*
-%{_mandir}/man1/ruby*
 %{_mandir}/man1/irb.1*
 %{_mandir}/man1/rake.1*
+%{_mandir}/man1/ruby*
 
 %files -n rubygem-bigdecimal
 %{ruby_libdir}/bigdecimal
