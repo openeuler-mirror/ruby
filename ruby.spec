@@ -1,11 +1,11 @@
 Name:      ruby
 Version:   2.5.1
-Release:   101
+Release:   102
 Summary:   Object-oriented scripting language interpreter
 License:   (Ruby or BSD) and Public Domain and MIT and CC0 and zlib and UCD
 URL:       http://ruby-lang.org/
 
-Source0:   ftp://ftp.ruby-lang.org/pub/ruby/2.5/ruby-2.5.1.tar.xz
+Source0:   http://cache.ruby-lang.org/pub/ruby/2.5/ruby-2.5.1.tar.xz
 Source1:   operating_system.rb
 Source2:   libruby.stp
 Source3:   ruby-exercise.stp
@@ -582,6 +582,12 @@ make runruby TESTRUN_SCRIPT=%{SOURCE13}
 %exclude %{gem_dir}/gems/xmlrpc-0.3.0/.*
 
 %changelog
+* Thu Jan 16 2020 fengbing <fengbing7@huawei.com> - 2.5.1-102
+- Type:N/A
+- ID:N/A
+- SUG:N/A
+- DESC:modify source0 in spec file
+
 * Mon Dec 30 2019 lihao openEuler Buildteam <buildteam@openeuler.org> - 2.5.1-101
 - Type:N/A
 - ID:N/A
