@@ -1,6 +1,6 @@
 Name:      ruby
 Version:   2.5.1
-Release:   104
+Release:   105
 Summary:   Object-oriented scripting language interpreter
 License:   (Ruby or BSD) and Public Domain and MIT and CC0 and zlib and UCD
 URL:       http://ruby-lang.org/
@@ -50,7 +50,7 @@ Patch6007: CVE-2019-16255.patch
 Patch6008: CVE-2019-19204.patch
 Patch6009: CVE-2019-19246.patch
 Patch6010: CVE-2019-16163.patch
-
+Patch6011: CVE-2020-10933.patch
 
 Provides:  %{name}-libs = %{version}-%{release}
 Obsoletes: %{name}-libs < %{version}-%{release}
@@ -588,6 +588,12 @@ make runruby TESTRUN_SCRIPT=%{SOURCE13}
 %exclude %{gem_dir}/gems/xmlrpc-0.3.0/.*
 
 %changelog
+* Thu May 07 2020 huanghaitao <huanghaitao@huawei.com> - 2.5.1-105
+- Type:cves
+- ID:CVE-2020-10933
+- SUG:restart
+- DESC:fix CVE-2020-10933
+
 * Mon Feb 03 2020 openEuler Buildteam <buildteam@openeuler.org> - 2.5.1-104
 - Type:cves
 - ID:CVE-2019-16163 CVE-2019-19204 CVE-2019-16255 CVE-2019-19246
