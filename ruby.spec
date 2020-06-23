@@ -1,6 +1,6 @@
 Name:      ruby
 Version:   2.5.1
-Release:   105
+Release:   106
 Summary:   Object-oriented scripting language interpreter
 License:   (Ruby or BSD) and Public Domain and MIT and CC0 and zlib and UCD
 URL:       http://ruby-lang.org/
@@ -588,7 +588,13 @@ make runruby TESTRUN_SCRIPT=%{SOURCE13}
 %exclude %{gem_dir}/gems/xmlrpc-0.3.0/.*
 
 %changelog
-* Fri May 15 2020 huanghaitao <huanghaitao@huawei.com> - 2.5.1-105
+* Mon Jun 22 2020 zhanghua <zhanghua40@huawei.com> - 2.5.1-106
+- Type:cves
+- ID:CVE-2020-10663
+- SUG:restart
+- DESC:fix CVE-2020-10663
+
+* Thu May 07 2020 huanghaitao <huanghaitao@huawei.com> - 2.5.1-105
 - Type:cves
 - ID:CVE-2020-10933
 - SUG:restart
