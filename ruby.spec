@@ -1,11 +1,11 @@
 Name:      ruby
-Version:   2.5.1
-Release:   107
+Version:   2.5.8
+Release:   1
 Summary:   Object-oriented scripting language interpreter
 License:   (Ruby or BSD) and Public Domain and MIT and CC0 and zlib and UCD
-URL:       http://ruby-lang.org/
+URL:       https://www.ruby-lang.org/en/
 
-Source0:   http://cache.ruby-lang.org/pub/ruby/2.5/ruby-2.5.1.tar.xz
+Source0:   http://cache.ruby-lang.org/pub/ruby/2.5/ruby-2.5.8.tar.xz
 Source1:   operating_system.rb
 Source2:   libruby.stp
 Source3:   ruby-exercise.stp
@@ -32,26 +32,11 @@ Patch0007: ruby-2.1.0-Allow-to-specify-additional-preludes-by-configuratio.patch
 Patch0008: ruby-2.2.3-Generate-preludes-using-miniruby.patch
 Patch0009: ruby-2.3.1-Rely-on-ldd-to-detect-glibc.patch
 Patch0010: ruby-2.5.0-Add-Gem.operating_system_defaults.patch
-Patch0011: ruby-2.5.1-TestTimeTZ-test-failures-Kiritimati-and-Lisbon.patch
-Patch0012: ruby-2.6.0-library-options-to-MAINLIBS.patch
-Patch0013: ruby-2.5.1-Avoid-need-of-C++-compiler-to-pass-the-test-suite.patch
-Patch0014: ruby-2.5.1-Test-fixes-for-OpenSSL-1.1.1.patch
-Patch0015: ruby-2.6.0-fix-test-failure-with-TLS-1.3.patch
-Patch0016: ruby-2.6.0-net-http-net-ftp-fix-session-resumption-with-TLS-1.3.patch
-
-Patch6000: ruby-CVE-2018-16395.patch
-Patch6001: ruby-CVE-2018-16396.patch
-Patch6002: ruby-2.6.0-Try-to-update-cert.patch
-Patch6003: CVE-2019-8322-8323-8324-8325.patch
-Patch6004: CVE-2019-15845.patch
-Patch6005: CVE-2019-16201.patch
-Patch6006: CVE-2019-16254.patch
-Patch6007: CVE-2019-16255.patch 
-Patch6008: CVE-2019-19204.patch
-Patch6009: CVE-2019-19246.patch
-Patch6010: CVE-2019-16163.patch
-Patch6011: CVE-2020-10933.patch
-Patch6012: CVE-2020-10663.patch
+Patch0011: ruby-2.6.0-library-options-to-MAINLIBS.patch
+Patch0012: ruby-2.5.1-Avoid-need-of-C++-compiler-to-pass-the-test-suite.patch
+Patch6000: CVE-2019-19204.patch
+Patch6001: CVE-2019-19246.patch
+Patch6002: CVE-2019-16163.patch
 
 Provides:  %{name}-libs = %{version}-%{release}
 Obsoletes: %{name}-libs < %{version}-%{release}
@@ -267,7 +252,7 @@ BuildArch:  noarch
 This package is a lightweight protocol which can enable remote procedure calls over HTTP.
 
 %prep
-%autosetup -n ruby-2.5.1 -p1
+%autosetup -n ruby-2.5.8 -p1
 
 rm -rf ext/psych/yaml
 rm -rf ext/fiddle/libffi*
@@ -321,7 +306,7 @@ install -d %{buildroot}%{_exec_prefix}/lib{,64}/gems/%{name}
 install -d %{buildroot}%{gem_dir}/gems/rdoc-6.0.1/lib
 
 mv %{buildroot}%{ruby_libdir}/rdoc* %{buildroot}%{gem_dir}/gems/rdoc-6.0.1/lib
-mv %{buildroot}%{gem_dir}/specifications/default/rdoc-6.0.1.gemspec %{buildroot}%{gem_dir}/specifications
+mv %{buildroot}%{gem_dir}/specifications/default/rdoc-6.0.1.1.gemspec %{buildroot}%{gem_dir}/specifications
 
 install -d %{buildroot}%{gem_dir}/gems/bigdecimal-1.3.4/lib
 install -d %{buildroot}%{_libdir}/gems/%{name}/bigdecimal-1.3.4
@@ -352,7 +337,7 @@ install -d %{buildroot}%{gem_dir}/gems/openssl-2.1.0/lib
 install -d %{buildroot}%{_libdir}/gems/%{name}/openssl-2.1.0
 mv %{buildroot}%{ruby_libdir}/openssl* %{buildroot}%{gem_dir}/gems/openssl-2.1.0/lib
 mv %{buildroot}%{ruby_libarchdir}/openssl.so %{buildroot}%{_libdir}/gems/%{name}/openssl-2.1.0/
-mv %{buildroot}%{gem_dir}/specifications/default/openssl-2.1.0.gemspec %{buildroot}%{gem_dir}/specifications
+#mv %{buildroot}%{gem_dir}/specifications/default/openssl-2.1.0.gemspec %{buildroot}%{gem_dir}/specifications
 
 install -d %{buildroot}%{ruby_libdir}/openssl
 find %{buildroot}%{gem_dir}/gems/openssl-2.1.0/lib/openssl -maxdepth 1 -type f -exec \
@@ -375,7 +360,7 @@ find %{buildroot}%{gem_dir}/extensions/*-%{_target_os}/2.5.1/* -maxdepth 0 \
 sed -i '/^end$/ i\
   s.extensions = ["json/ext/parser.so", "json/ext/generator.so"]' %{buildroot}%{gem_dir}/specifications/json-2.1.0.gemspec
 
-mv %{buildroot}%{gem_dir}/gems/rake-12.3.0/doc/rake.1 %{buildroot}%{_mandir}/man1
+mv %{buildroot}%{gem_dir}/gems/rake-12.3.3/doc/rake.1 %{buildroot}%{_mandir}/man1
 
 install -d %{buildroot}%{_datadir}/systemtap/tapset
 sed -e "s|@LIBRARY_PATH@|%(echo %{_libdir} | sed 's/64//')*/libruby.so.2.5|" \
@@ -396,7 +381,7 @@ sed -i 's/^/%lang(ja) /' .ruby-doc.ja
 
 %check
 
-[ "`make runruby TESTRUN_SCRIPT='bin/gem -v' | tail -1`" == '2.7.6' ]
+[ "`make runruby TESTRUN_SCRIPT='bin/gem -v' | tail -1`" == '2.7.6.2' ]
 
 [ "`make runruby TESTRUN_SCRIPT=\"-e \\\" module Gem; module Resolver; end; end; \
   require 'rubygems/resolver/molinillo/lib/molinillo/gem_metadata'; \
@@ -497,8 +482,8 @@ make runruby TESTRUN_SCRIPT=%{SOURCE13}
 
 %files -n rubygem-rake
 %{_bindir}/rake
-%{gem_dir}/gems/rake-12.3.0
-%{gem_dir}/specifications/rake-12.3.0.gemspec
+%{gem_dir}/gems/rake-12.3.3
+%{gem_dir}/specifications/rake-12.3.3.gemspec
 
 %files irb
 %{_bindir}/irb
@@ -506,8 +491,8 @@ make runruby TESTRUN_SCRIPT=%{SOURCE13}
 
 %files -n rubygem-rdoc
 %{_bindir}/{rdoc,ri}
-%{gem_dir}/gems/rdoc-6.0.1
-%{gem_dir}/specifications/rdoc-6.0.1.gemspec
+%{gem_dir}/gems/rdoc-6.0.1*
+%{gem_dir}/specifications/rdoc-6.0.1.1.gemspec
 
 %files help -f .ruby-doc.en -f .ruby-doc.ja
 %doc README.md ChangeLog ruby-exercise.stp
@@ -555,7 +540,7 @@ make runruby TESTRUN_SCRIPT=%{SOURCE13}
 %{ruby_libarchdir}/openssl.so
 %{_libdir}/gems/%{name}/openssl-2.1.0
 %{gem_dir}/gems/openssl-2.1.0
-%{gem_dir}/specifications/openssl-2.1.0.gemspec
+#%{gem_dir}/specifications/openssl-2.1.0.gemspec
 
 %files -n rubygem-power_assert
 %{gem_dir}/gems/power_assert-1.1.1
@@ -589,6 +574,12 @@ make runruby TESTRUN_SCRIPT=%{SOURCE13}
 %exclude %{gem_dir}/gems/xmlrpc-0.3.0/.*
 
 %changelog
+* Mon Jul 27 2020 shixuantong <shixuantong@huawei.com> - 2.5.8-1
+- Type:NA
+- ID:NA
+- SUG:NA
+- DESC:update to 2.5.8
+
 *Wed Jul 08 2020 zhangjiapeng <zhangjiapeng9@huawei.com> - 2.5.1-107
 - Type:N/A
 - ID:N/A
