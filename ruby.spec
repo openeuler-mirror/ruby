@@ -1,6 +1,6 @@
 Name:      ruby
 Version:   2.5.8
-Release:   1
+Release:   2
 Summary:   Object-oriented scripting language interpreter
 License:   (Ruby or BSD) and Public Domain and MIT and CC0 and zlib and UCD
 URL:       https://www.ruby-lang.org/en/
@@ -99,8 +99,8 @@ Rake is a Make-like program implemented in Ruby,Tasks and dependencies are speci
 
 %package irb
 Summary:    The Interactive Ruby
-Version:    2.5.1
-Requires:   %{name}-libs = 2.5.1
+Version:    2.5.8
+Requires:   %{name}-libs = 2.5.8
 Provides:   irb = %{version}-%{release} ruby(irb) = %{version}-%{release}
 BuildArch:  noarch
 
@@ -111,7 +111,7 @@ The irb is acronym for Interactive Ruby,It evaluates ruby expression from the te
 Summary:    Generate HTML and command-line documentation for Ruby projects
 Version:    6.0.1
 License:    GPLv2 and Ruby and MIT and OFL
-Requires:   ruby(release) ruby(rubygems) >= 2.7.6 ruby(irb) = 2.5.1 rubygem(io-console) >= 0.4.6 rubygem(json) >= 2.1.0
+Requires:   ruby(release) ruby(rubygems) >= 2.7.6 ruby(irb) = 2.5.8 rubygem(io-console) >= 0.4.6 rubygem(json) >= 2.1.0
 Provides:   rdoc = %{version}-%{release} ri = %{version}-%{release} rubygem(rdoc) = %{version}-%{release}
 BuildArch:  noarch
 
@@ -574,6 +574,12 @@ make runruby TESTRUN_SCRIPT=%{SOURCE13}
 %exclude %{gem_dir}/gems/xmlrpc-0.3.0/.*
 
 %changelog
+* Thu Aug 4 2020 shixuantong <shixuantong@huawei.com> - 2.5.8-2
+- Type:NA
+- ID:NA
+- SUG:NA
+- DESC:change package irb version
+
 * Mon Jul 27 2020 shixuantong <shixuantong@huawei.com> - 2.5.8-1
 - Type:NA
 - ID:NA
