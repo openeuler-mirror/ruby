@@ -1,6 +1,6 @@
 Name:      ruby
 Version:   2.5.8
-Release:   2
+Release:   3
 Summary:   Object-oriented scripting language interpreter
 License:   (Ruby or BSD) and Public Domain and MIT and CC0 and zlib and UCD
 URL:       https://www.ruby-lang.org/en/
@@ -69,7 +69,7 @@ Summary:    Ruby standard for wrapping ruby libraries
 Version:    2.7.6
 License:    Ruby or MIT
 Requires:   ruby(release) rubygem(openssl) >= 2.1.0 rubygem(psych) >= 3.0.2
-Recommends: rubygem(rdoc) >= 6.0.1 rubygem(io-console) >= 0.4.6
+Recommends: rubygem(rdoc) >= 6.0.1.1 rubygem(io-console) >= 0.4.6
 Provides:   gem = %{version}-%{release} ruby(rubygems) = %{version}-%{release} bundled(rubygem-molinillo) = 0.5.7
 BuildArch:  noarch
 
@@ -80,7 +80,7 @@ The Ruby standard for publishing and managing third party libraries provided by 
 Summary:    For packaging RubyGems
 Version:    2.7.6
 License:    Ruby or MIT
-Requires:   ruby(rubygems) = %{version}-%{release} rubygem(json) >= 2.1.0 rubygem(rdoc) >= 6.0.1
+Requires:   ruby(rubygems) = %{version}-%{release} rubygem(json) >= 2.1.0 rubygem(rdoc) >= 6.0.1.1
 BuildArch:  noarch
 
 %description -n rubygems-devel
@@ -109,7 +109,7 @@ The irb is acronym for Interactive Ruby,It evaluates ruby expression from the te
 
 %package -n rubygem-rdoc
 Summary:    Generate HTML and command-line documentation for Ruby projects
-Version:    6.0.1
+Version:    6.0.1.1
 License:    GPLv2 and Ruby and MIT and OFL
 Requires:   ruby(release) ruby(rubygems) >= 2.7.6 ruby(irb) = 2.5.8 rubygem(io-console) >= 0.4.6 rubygem(json) >= 2.1.0
 Provides:   rdoc = %{version}-%{release} ri = %{version}-%{release} rubygem(rdoc) = %{version}-%{release}
@@ -187,7 +187,7 @@ minitest/pride - Show pride in the test and add color to the test output.
 
 %package -n rubygem-openssl
 Summary:    Provide SSL、TLS and general purpose cryptography
-Version:    2.1.0
+Version:    2.1.2
 License:    Ruby or BSD
 Requires:   ruby(release) ruby(rubygems) >= 2.7.6
 Provides:   rubygem(openssl) = %{version}-%{release}
@@ -303,9 +303,9 @@ cp %{SOURCE1} %{buildroot}%{_datadir}/rubygems/rubygems/defaults
 mv %{buildroot}%{ruby_libdir}/gems %{buildroot}%{gem_dir}
 
 install -d %{buildroot}%{_exec_prefix}/lib{,64}/gems/%{name}
-install -d %{buildroot}%{gem_dir}/gems/rdoc-6.0.1/lib
+install -d %{buildroot}%{gem_dir}/gems/rdoc-6.0.1.1/lib
 
-mv %{buildroot}%{ruby_libdir}/rdoc* %{buildroot}%{gem_dir}/gems/rdoc-6.0.1/lib
+mv %{buildroot}%{ruby_libdir}/rdoc* %{buildroot}%{gem_dir}/gems/rdoc-6.0.1.1/lib
 mv %{buildroot}%{gem_dir}/specifications/default/rdoc-6.0.1.1.gemspec %{buildroot}%{gem_dir}/specifications
 
 install -d %{buildroot}%{gem_dir}/gems/bigdecimal-1.3.4/lib
@@ -333,17 +333,17 @@ ln -s %{gem_dir}/gems/json-2.1.0/lib/json.rb %{buildroot}%{ruby_libdir}/json.rb
 ln -s %{gem_dir}/gems/json-2.1.0/lib/json %{buildroot}%{ruby_libdir}/json
 ln -s %{_libdir}/gems/%{name}/json-2.1.0/json/ %{buildroot}%{ruby_libarchdir}/json
 
-install -d %{buildroot}%{gem_dir}/gems/openssl-2.1.0/lib
-install -d %{buildroot}%{_libdir}/gems/%{name}/openssl-2.1.0
-mv %{buildroot}%{ruby_libdir}/openssl* %{buildroot}%{gem_dir}/gems/openssl-2.1.0/lib
-mv %{buildroot}%{ruby_libarchdir}/openssl.so %{buildroot}%{_libdir}/gems/%{name}/openssl-2.1.0/
-#mv %{buildroot}%{gem_dir}/specifications/default/openssl-2.1.0.gemspec %{buildroot}%{gem_dir}/specifications
+install -d %{buildroot}%{gem_dir}/gems/openssl-2.1.2/lib
+install -d %{buildroot}%{_libdir}/gems/%{name}/openssl-2.1.2
+mv %{buildroot}%{ruby_libdir}/openssl* %{buildroot}%{gem_dir}/gems/openssl-2.1.2/lib
+mv %{buildroot}%{ruby_libarchdir}/openssl.so %{buildroot}%{_libdir}/gems/%{name}/openssl-2.1.2/
+mv %{buildroot}%{gem_dir}/specifications/default/openssl-2.1.2.gemspec %{buildroot}%{gem_dir}/specifications
 
 install -d %{buildroot}%{ruby_libdir}/openssl
-find %{buildroot}%{gem_dir}/gems/openssl-2.1.0/lib/openssl -maxdepth 1 -type f -exec \
-  sh -c 'ln -s %{gem_dir}/gems/openssl-2.1.0/lib/openssl/`basename {}` %{buildroot}%{ruby_libdir}/openssl' \;
-ln -s %{gem_dir}/gems/openssl-2.1.0/lib/openssl.rb %{buildroot}%{ruby_libdir}/openssl.rb
-ln -s %{_libdir}/gems/%{name}/openssl-2.1.0/openssl.so %{buildroot}%{ruby_libarchdir}/openssl.so
+find %{buildroot}%{gem_dir}/gems/openssl-2.1.2/lib/openssl -maxdepth 1 -type f -exec \
+  sh -c 'ln -s %{gem_dir}/gems/openssl-2.1.2/lib/openssl/`basename {}` %{buildroot}%{ruby_libdir}/openssl' \;
+ln -s %{gem_dir}/gems/openssl-2.1.2/lib/openssl.rb %{buildroot}%{ruby_libdir}/openssl.rb
+ln -s %{_libdir}/gems/%{name}/openssl-2.1.2/openssl.so %{buildroot}%{ruby_libarchdir}/openssl.so
 
 install -d %{buildroot}%{gem_dir}/gems/psych-3.0.2/lib
 install -d %{buildroot}%{_libdir}/gems/%{name}/psych-3.0.2
@@ -491,7 +491,7 @@ make runruby TESTRUN_SCRIPT=%{SOURCE13}
 
 %files -n rubygem-rdoc
 %{_bindir}/{rdoc,ri}
-%{gem_dir}/gems/rdoc-6.0.1*
+%{gem_dir}/gems/rdoc-6.0.1.1
 %{gem_dir}/specifications/rdoc-6.0.1.1.gemspec
 
 %files help -f .ruby-doc.en -f .ruby-doc.ja
@@ -538,9 +538,9 @@ make runruby TESTRUN_SCRIPT=%{SOURCE13}
 %{ruby_libdir}/openssl
 %{ruby_libdir}/openssl.rb
 %{ruby_libarchdir}/openssl.so
-%{_libdir}/gems/%{name}/openssl-2.1.0
-%{gem_dir}/gems/openssl-2.1.0
-#%{gem_dir}/specifications/openssl-2.1.0.gemspec
+%{_libdir}/gems/%{name}/openssl-2.1.2
+%{gem_dir}/gems/openssl-2.1.2
+%{gem_dir}/specifications/openssl-2.1.2.gemspec
 
 %files -n rubygem-power_assert
 %{gem_dir}/gems/power_assert-1.1.1
@@ -574,6 +574,12 @@ make runruby TESTRUN_SCRIPT=%{SOURCE13}
 %exclude %{gem_dir}/gems/xmlrpc-0.3.0/.*
 
 %changelog
+* Fri Aug 7 2020 shixuantong <shixuantong@huawei.com> - 2.5.8-3
+- Type:bugfix
+- ID:NA
+- SUG:NA
+- DESC:fix rdoc and ri command error problem
+
 * Thu Aug 4 2020 shixuantong <shixuantong@huawei.com> - 2.5.8-2
 - Type:NA
 - ID:NA
