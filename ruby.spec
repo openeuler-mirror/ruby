@@ -1,6 +1,6 @@
 Name:      ruby
 Version:   2.5.8
-Release:   1
+Release:   2
 Summary:   Object-oriented scripting language interpreter
 License:   (Ruby or BSD) and Public Domain and MIT and CC0 and zlib and UCD
 URL:       https://www.ruby-lang.org/
@@ -38,6 +38,7 @@ Patch0012: ruby-2.5.1-Avoid-need-of-C++-compiler-to-pass-the-test-suite.patch
 Patch0013: CVE-2019-19204.patch
 Patch0014: CVE-2019-19246.patch
 Patch0015: CVE-2019-16163.patch
+Patch0016: CVE-2020-25613.patch
 
 Provides:  %{name}-libs = %{version}-%{release}
 Obsoletes: %{name}-libs < %{version}-%{release}
@@ -575,6 +576,12 @@ make runruby TESTRUN_SCRIPT=%{SOURCE13}
 %exclude %{gem_dir}/gems/xmlrpc-0.3.0/.*
 
 %changelog
+* Thu Nov 5 2020 wutao <wutao61@huawei.com> - 2.5.8-2
+- Type:cves
+- ID:CVE-2020-25613
+- SUG:NA
+- DESC:fix CVE-2020-25613
+
 * Tue Aug 04 2020 shanzhikun <shanzhikun@huawei.com> - 2.5.8-1
 - upgrade ruby to 2.5.8.
 
