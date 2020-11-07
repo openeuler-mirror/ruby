@@ -1,6 +1,6 @@
 Name:      ruby
 Version:   2.5.8
-Release:   3
+Release:   4
 Summary:   Object-oriented scripting language interpreter
 License:   (Ruby or BSD) and Public Domain and MIT and CC0 and zlib and UCD
 URL:       https://www.ruby-lang.org/en/
@@ -37,6 +37,7 @@ Patch0012: ruby-2.5.1-Avoid-need-of-C++-compiler-to-pass-the-test-suite.patch
 Patch6000: CVE-2019-19204.patch
 Patch6001: CVE-2019-19246.patch
 Patch6002: CVE-2019-16163.patch
+Patch6003: CVE-2020-25613.patch
 
 Provides:  %{name}-libs = %{version}-%{release}
 Obsoletes: %{name}-libs < %{version}-%{release}
@@ -574,6 +575,14 @@ make runruby TESTRUN_SCRIPT=%{SOURCE13}
 %exclude %{gem_dir}/gems/xmlrpc-0.3.0/.*
 
 %changelog
+* Thu Nov 5 2020 wutao <wutao61@huawei.com> - 2.5.8-4
+- fix CVE-2020-25613
+- WEBrick,a simple HTTP server bundled with Ruby,had not
+- checked the transfer-encoding header value rigorously.
+- An attacker may potentially exploit this issue to bypass
+- a reverse proxy,which may lead to an HTTP Request Smuggling
+- attack.
+
 * Fri Aug 7 2020 shixuantong <shixuantong@huawei.com> - 2.5.8-3
 - Type:bugfix
 - ID:NA
