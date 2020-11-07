@@ -1,6 +1,6 @@
 Name:      ruby
 Version:   2.5.8
-Release:   1
+Release:   2
 Summary:   Object-oriented scripting language interpreter
 License:   (Ruby or BSD) and Public Domain and MIT and CC0 and zlib and UCD
 URL:       https://www.ruby-lang.org/
@@ -49,7 +49,7 @@ Obsoletes: ruby-tcltk < 2.4.0
 Suggests:   rubypick
 Recommends: ruby(rubygems) >= 2.7.6 rubygem(bigdecimal) >= 1.3.4
 Recommends: rubygem(did_you_mean) >= 1.2.0 rubygem(openssl) >= 2.1.0
-
+Requires:   %{name}-help = %{version}-%{release}
 BuildRequires: autoconf gdbm-devel gmp-devel libffi-devel openssl-devel libyaml-devel readline-devel
 BuildRequires: procps git gcc systemtap-sdt-devel cmake
 
@@ -575,6 +575,9 @@ make runruby TESTRUN_SCRIPT=%{SOURCE13}
 %exclude %{gem_dir}/gems/xmlrpc-0.3.0/.*
 
 %changelog
+* Fri Nov 06 2020 liuweibo <liuweibo10@huawei.com> - 2.5.8-2
+- append doc require to ruby
+
 * Tue Aug 04 2020 shanzhikun <shanzhikun@huawei.com> - 2.5.8-1
 - upgrade ruby to 2.5.8.
 
