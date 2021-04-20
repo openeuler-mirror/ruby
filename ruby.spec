@@ -1,6 +1,6 @@
 Name:      ruby
 Version:   2.5.8
-Release:   4
+Release:   112
 Summary:   Object-oriented scripting language interpreter
 License:   (Ruby or BSD) and Public Domain and MIT and CC0 and zlib and UCD
 URL:       https://www.ruby-lang.org/en/
@@ -575,6 +575,12 @@ make runruby TESTRUN_SCRIPT=%{SOURCE13}
 %exclude %{gem_dir}/gems/xmlrpc-0.3.0/.*
 
 %changelog
+* Tue Apr 20 2021 shixuantong <shixuantong@huawei.com> - 2.5.8-112
+- Type:bugfix
+- ID:NA
+- SUG:NA
+- DESC:change release number for rebuild
+
 * Thu Nov 5 2020 wutao <wutao61@huawei.com> - 2.5.8-4
 - fix CVE-2020-25613
 - WEBrick,a simple HTTP server bundled with Ruby,had not
