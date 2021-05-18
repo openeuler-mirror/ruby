@@ -1,6 +1,6 @@
 Name:      ruby
 Version:   2.5.8
-Release:   112
+Release:   113
 Summary:   Object-oriented scripting language interpreter
 License:   (Ruby or BSD) and Public Domain and MIT and CC0 and zlib and UCD
 URL:       https://www.ruby-lang.org/
@@ -34,11 +34,12 @@ Patch0009: ruby-2.3.1-Rely-on-ldd-to-detect-glibc.patch
 Patch0010: ruby-2.5.0-Add-Gem.operating_system_defaults.patch
 Patch0011: ruby-2.6.0-library-options-to-MAINLIBS.patch
 Patch0012: ruby-2.5.1-Avoid-need-of-C++-compiler-to-pass-the-test-suite.patch
-
-Patch0013: CVE-2019-19204.patch
-Patch0014: CVE-2019-19246.patch
-Patch0015: CVE-2019-16163.patch
-Patch0016: CVE-2020-25613.patch
+Patch6000: CVE-2019-19204.patch
+Patch6001: CVE-2019-19246.patch
+Patch6002: CVE-2019-16163.patch
+Patch6003: CVE-2020-25613.patch
+Patch6004: upgrade_lib_rexml.patch
+Patch6005: upgrade_lib_rexml_test.patch
 
 Provides:  %{name}-libs = %{version}-%{release}
 Obsoletes: %{name}-libs < %{version}-%{release}
@@ -302,7 +303,9 @@ install -m 755 %{SOURCE11} %{buildroot}%{_rpmconfigdir}
 
 install -d %{buildroot}%{_datadir}/rubygems/rubygems/defaults
 cp %{SOURCE1} %{buildroot}%{_datadir}/rubygems/rubygems/defaults
-mv %{buildroot}%{ruby_libdir}/gems %{buildroot}%{gem_dir}
+if [ -d %{buildroot}%{ruby_libdir}/gems ]; then
+  mv %{buildroot}%{ruby_libdir}/gems %{buildroot}%{gem_dir}
+fi
 
 install -d %{buildroot}%{_exec_prefix}/lib{,64}/gems/%{name}
 install -d %{buildroot}%{gem_dir}/gems/rdoc-6.0.1.1/lib
@@ -576,6 +579,10 @@ make runruby TESTRUN_SCRIPT=%{SOURCE13}
 %exclude %{gem_dir}/gems/xmlrpc-0.3.0/.*
 
 %changelog
+* Fri Apr 30 2021 Shinwell_Hu <huxinwei@huawei.com> - 2.5.8-113
+- Upgrade bundled REXML gem to fix CVE-2021-28965, which is an XML
+  round-trip vulnerability in REXML.
+
 * Tue Apr 20 2021 shixuantong <shixuantong@huawei.com> - 2.5.8-112
 - Type:bugfix
 - ID:NA
@@ -590,8 +597,17 @@ make runruby TESTRUN_SCRIPT=%{SOURCE13}
 - a reverse proxy,which may lead to an HTTP Request Smuggling
 - attack.
 
-* Fri Nov 06 2020 liuweibo <liuweibo10@huawei.com> - 2.5.8-2
-- append doc require to ruby
+* Fri Aug 7 2020 shixuantong <shixuantong@huawei.com> - 2.5.8-3
+- Type:bugfix
+- ID:NA
+- SUG:NA
+- DESC:fix rdoc and ri command error problem
+
+* Tue Aug 4 2020 shixuantong <shixuantong@huawei.com> - 2.5.8-2
+- Type:NA
+- ID:NA
+- SUG:NA
+- DESC:change package irb version
 
 * Tue Aug 04 2020 shanzhikun <shanzhikun@huawei.com> - 2.5.8-1
 - upgrade ruby to 2.5.8.
