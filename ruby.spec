@@ -1,6 +1,6 @@
 Name:      ruby
 Version:   2.5.8
-Release:   113
+Release:   114
 Summary:   Object-oriented scripting language interpreter
 License:   (Ruby or BSD) and Public Domain and MIT and CC0 and zlib and UCD
 URL:       https://www.ruby-lang.org/
@@ -40,6 +40,9 @@ Patch6002: CVE-2019-16163.patch
 Patch6003: CVE-2020-25613.patch
 Patch6004: upgrade_lib_rexml.patch
 Patch6005: upgrade_lib_rexml_test.patch
+Patch6006: backport-CVE-2021-31799.patch
+Patch6007: backport-CVE-2021-31810.patch
+Patch6008: backport-CVE-2021-32066.patch
 
 Provides:  %{name}-libs = %{version}-%{release}
 Obsoletes: %{name}-libs < %{version}-%{release}
@@ -579,6 +582,9 @@ make runruby TESTRUN_SCRIPT=%{SOURCE13}
 %exclude %{gem_dir}/gems/xmlrpc-0.3.0/.*
 
 %changelog
+* Sat Jul 31 2021 shixuantong <shixuantong@huawei.com> - 2.5.8-114
+- fix CVE-2021-31799 CVE-2021-31810 CVE-2021-32066
+
 * Fri Apr 30 2021 Shinwell_Hu <huxinwei@huawei.com> - 2.5.8-113
 - Upgrade bundled REXML gem to fix CVE-2021-28965, which is an XML
   round-trip vulnerability in REXML.
