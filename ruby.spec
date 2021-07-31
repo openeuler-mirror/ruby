@@ -1,6 +1,6 @@
 Name:      ruby
 Version:   2.5.8
-Release:   4
+Release:   113
 Summary:   Object-oriented scripting language interpreter
 License:   (Ruby or BSD) and Public Domain and MIT and CC0 and zlib and UCD
 URL:       https://www.ruby-lang.org/en/
@@ -38,6 +38,8 @@ Patch6000: CVE-2019-19204.patch
 Patch6001: CVE-2019-19246.patch
 Patch6002: CVE-2019-16163.patch
 Patch6003: CVE-2020-25613.patch
+Patch6004: backport-0001-CVE-2021-28965.patch
+Patch6005: backport-0002-CVE-2021-28965.patch
 
 Provides:  %{name}-libs = %{version}-%{release}
 Obsoletes: %{name}-libs < %{version}-%{release}
@@ -575,6 +577,9 @@ make runruby TESTRUN_SCRIPT=%{SOURCE13}
 %exclude %{gem_dir}/gems/xmlrpc-0.3.0/.*
 
 %changelog
+* Sat Jul 31 2021 shixuantong <shixuantong@huawei.com> - 2.5.8-113
+- fix CVE-2021-28965
+
 * Thu Nov 5 2020 wutao <wutao61@huawei.com> - 2.5.8-4
 - fix CVE-2020-25613
 - WEBrick,a simple HTTP server bundled with Ruby,had not
