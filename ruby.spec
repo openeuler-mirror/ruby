@@ -1,6 +1,6 @@
 Name:      ruby
 Version:   2.5.8
-Release:   113
+Release:   114
 Summary:   Object-oriented scripting language interpreter
 License:   (Ruby or BSD) and Public Domain and MIT and CC0 and zlib and UCD
 URL:       https://www.ruby-lang.org/
@@ -41,6 +41,9 @@ Patch0015: CVE-2019-16163.patch
 Patch0016: CVE-2020-25613.patch
 Patch6000: backport-0001-CVE-2021-28965.patch
 Patch6001: backport-0002-CVE-2021-28965.patch
+Patch6002: backport-CVE-2021-31799.patch
+Patch6003: backport-CVE-2021-31810.patch
+Patch6004: backport-CVE-2021-32066.patch
 
 Provides:  %{name}-libs = %{version}-%{release}
 Obsoletes: %{name}-libs < %{version}-%{release}
@@ -578,6 +581,12 @@ make runruby TESTRUN_SCRIPT=%{SOURCE13}
 %exclude %{gem_dir}/gems/xmlrpc-0.3.0/.*
 
 %changelog
+* Sat Jul 31 2021 shixuantong <shixuantong@huawei.com> - 2.5.8-114
+- Type:cves
+- ID:CVE-2021-31799 CVE-2021-31810 CVE-2021-32066
+- SUG:NA
+- DESC:fix CVE-2021-31799 CVE-2021-31810 CVE-2021-32066
+
 * Sat Jul 31 2021 shixuantong <shixuantong@huawei.com> - 2.5.8-113
 - Type:cves
 - ID:CVE-2021-28965
