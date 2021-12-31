@@ -9,6 +9,7 @@
 %gem_cache %{gem_dir}/cache/%{gem_name}-%{version}%{?prerelease}.gem
 %gem_spec %{gem_dir}/specifications/%{gem_name}-%{version}%{?prerelease}.gemspec
 %gem_docdir %{gem_dir}/doc/%{gem_name}-%{version}%{?prerelease}
+%gem_plugin %{gem_dir}/plugins/%{gem_name}_plugin.rb
 
 
 # %gem_install - Install gem into appropriate directory.
@@ -21,7 +22,7 @@
 %gem_install(d:n:) \
 mkdir -p %{-d*}%{!?-d:.%{gem_dir}} \
 \
-CONFIGURE_ARGS="--with-cflags='%{optflags}' $CONFIGURE_ARGS" \\\
+CONFIGURE_ARGS="--with-cflags='%{optflags}' --with-cxxflags='%{optflags}' --with-ldflags='%{build_ldflags}' $CONFIGURE_ARGS" \\\
 gem install \\\
         -V \\\
         --local \\\
@@ -30,16 +31,6 @@ gem install \\\
         --document=ri,rdoc \\\
         %{-n*}%{!?-n:%{gem_name}-%{version}%{?prerelease}.gem} \
 %{nil}
-
-
-# For rubygems packages we want to filter out any provides caused by private
-# libs in %%{gem_archdir}.
-#
-# Note that this must be invoked in the spec file, preferably as
-# "%{?rubygems_default_filter}", before any %description block.
-%rubygems_default_filter %{expand: \
-%global __provides_exclude_from %{?__provides_exclude_from:%{__provides_exclude_from}|}^%{gem_extdir_mri}/.*\\\\.so$ \
-}
 
 
 # The 'read' command in %%gemspec_* macros is not essential, but it is usefull
@@ -60,7 +51,7 @@ gem install \\\
 #
 %gemspec_add_dep(g:s:d) \
 read -d '' gemspec_add_dep_script << 'EOR' || : \
-  gemspec_file = '%{-s*}%{!?-s:%{_builddir}/%{gem_name}-%{version}.gemspec}' \
+  gemspec_file = '%{-s*}%{!?-s:%{_builddir}/%{gem_name}-%{version}%{?prerelease}.gemspec}' \
   \
   name = '%{-g*}' \
   requirements = %{*}%{!?1:nil} \
@@ -97,7 +88,7 @@ unset -v gemspec_add_dep_script \
 #
 %gemspec_remove_dep(g:s:d) \
 read -d '' gemspec_remove_dep_script << 'EOR' || : \
-  gemspec_file = '%{-s*}%{!?-s:%{_builddir}/%{gem_name}-%{version}.gemspec}' \
+  gemspec_file = '%{-s*}%{!?-s:%{_builddir}/%{gem_name}-%{version}%{?prerelease}.gemspec}' \
   \
   name = '%{-g*}' \
   requirements = %{*}%{!?1:nil} \
@@ -144,7 +135,7 @@ unset -v gemspec_remove_dep_script \
 #
 %gemspec_add_file(s:tr) \
 read -d '' gemspec_add_file_script << 'EOR' || : \
-  gemspec_file = '%{-s*}%{!?-s:%{_builddir}/%{gem_name}-%{version}.gemspec}' \
+  gemspec_file = '%{-s*}%{!?-s:%{_builddir}/%{gem_name}-%{version}%{?prerelease}.gemspec}' \
   \
   abort("gemspec_add_file: Use only one '-t' or '-r' at a time.") if "%{?-t}%{?-r}" == "-t-r" \
   \
@@ -177,7 +168,7 @@ unset -v gemspec_add_file_script \
 #
 %gemspec_remove_file(s:tr) \
 read -d '' gemspec_remove_file_script << 'EOR' || : \
-  gemspec_file = '%{-s*}%{!?-s:%{_builddir}/%{gem_name}-%{version}.gemspec}' \
+  gemspec_file = '%{-s*}%{!?-s:%{_builddir}/%{gem_name}-%{version}%{?prerelease}.gemspec}' \
   \
   abort("gemspec_remove_file: Use only one '-t' or '-r' at a time.") if "%{?-t}%{?-r}" == "-t-r" \
   \
