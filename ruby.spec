@@ -1,6 +1,6 @@
 Name:      ruby
 Version:   2.5.8
-Release:   114
+Release:   115
 Summary:   Object-oriented scripting language interpreter
 License:   (Ruby or BSD) and Public Domain and MIT and CC0 and zlib and UCD
 URL:       https://www.ruby-lang.org/
@@ -34,6 +34,7 @@ Patch0009: ruby-2.3.1-Rely-on-ldd-to-detect-glibc.patch
 Patch0010: ruby-2.5.0-Add-Gem.operating_system_defaults.patch
 Patch0011: ruby-2.6.0-library-options-to-MAINLIBS.patch
 Patch0012: ruby-2.5.1-Avoid-need-of-C++-compiler-to-pass-the-test-suite.patch
+Patch0013: CVE-2021-41819.patch
 Patch6000: CVE-2019-19204.patch
 Patch6001: CVE-2019-19246.patch
 Patch6002: CVE-2019-16163.patch
@@ -582,6 +583,9 @@ make runruby TESTRUN_SCRIPT=%{SOURCE13}
 %exclude %{gem_dir}/gems/xmlrpc-0.3.0/.*
 
 %changelog
+* Sat Jan 15 2022 yaoxin <yaoxin30@huawei.com> - 2.5.8-115
+- Fix CVE-2021-41819
+
 * Sat Jul 31 2021 shixuantong <shixuantong@huawei.com> - 2.5.8-114
 - fix CVE-2021-31799 CVE-2021-31810 CVE-2021-32066
 
