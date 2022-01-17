@@ -33,7 +33,7 @@
 
 Name:      ruby
 Version:   %{ruby_version}
-Release:   3
+Release:   118
 Summary:   Object-oriented scripting language interpreter
 License:   (Ruby or BSD) and Public Domain and MIT and CC0 and zlib and UCD
 URL:       https://www.ruby-lang.org/en/
@@ -1178,6 +1178,9 @@ make runruby TESTRUN_SCRIPT=%{SOURCE13}
 %doc %{gem_dir}/gems/typeprof-%{typeprof_version}/testbed
 
 %changelog
+* Mon Jan 17 2022 shixuantong <shixuantong@huawei.com> - 3.0.3-118
+- change release number for rebuild
+
 * Thu Jan 06 2022 shangyibin <shangyibin1@huawei.com> - 3.0.3-3
 - add libruby.so.2.5 and libruby.so.2.5.8 file
 
