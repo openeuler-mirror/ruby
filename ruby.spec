@@ -33,7 +33,7 @@
 
 Name:      ruby
 Version:   %{ruby_version}
-Release:   118
+Release:   119
 Summary:   Object-oriented scripting language interpreter
 License:   (Ruby or BSD) and Public Domain and MIT and CC0 and zlib and UCD
 URL:       https://www.ruby-lang.org/en/
@@ -585,8 +585,6 @@ echo 'doc/pty' >> .ruby-doc.ja
 
 sed -i 's/^/%doc /' .ruby-doc.*
 sed -i 's/^/%lang(ja) /' .ruby-doc.ja
-
-cp -a %{_libdir}/libruby.so.2.5* $RPM_BUILD_ROOT%{_libdir}
 
 %check
 
@@ -1178,6 +1176,9 @@ make runruby TESTRUN_SCRIPT=%{SOURCE13}
 %doc %{gem_dir}/gems/typeprof-%{typeprof_version}/testbed
 
 %changelog
+* Mon Feb 07 2022 shangyibin <shangyibin1@h-partners.com> - 3.0.3-119
+- Old version of libruby.so was kept for compatibility,remove it.
+
 * Mon Jan 17 2022 shixuantong <shixuantong@huawei.com> - 3.0.3-118
 - change release number for rebuild
 
