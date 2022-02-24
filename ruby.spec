@@ -33,7 +33,7 @@
 
 Name:      ruby
 Version:   %{ruby_version}
-Release:   119
+Release:   120
 Summary:   Object-oriented scripting language interpreter
 License:   (Ruby or BSD) and Public Domain and MIT and CC0 and zlib and UCD
 URL:       https://www.ruby-lang.org/en/
@@ -167,6 +167,8 @@ Patch52: ruby-3.1.0-Support-OpenSSL-3.0.patch
 # Fix `TestPumaControlCli#test_control_ssl` testcase in Puma.
 # https://github.com/ruby/openssl/pull/399#issuecomment-966239736
 Patch53: ruby-3.1.0-SSL_read-EOF-handling.patch
+
+Patch6000: backport-Add-tests-for-template-stylesheets-option.patch
 
 Provides:  %{name}-libs = %{version}-%{release}
 Obsoletes: %{name}-libs < %{version}-%{release}
@@ -1176,6 +1178,9 @@ make runruby TESTRUN_SCRIPT=%{SOURCE13}
 %doc %{gem_dir}/gems/typeprof-%{typeprof_version}/testbed
 
 %changelog
+* Wed Feb 23 2022 shixuantong <shixuantong@h-partners.com> - 3.0.3-120
+- Add tests for `--template-stylesheets` option
+
 * Mon Feb 07 2022 shangyibin <shangyibin1@h-partners.com> - 3.0.3-119
 - Old version of libruby.so was kept for compatibility,remove it.
 
