@@ -1,0 +1,113 @@
+From 76c7388c1f41fb0ae3dacda0d9c02e7562a6655d Mon Sep 17 00:00:00 2001
+From: Nobuyoshi Nakada <nobu@ruby-lang.org>
+Date: Wed, 18 Aug 2021 13:48:12 +0900
+Subject: [PATCH] [ruby/rdoc] Add tests for `--template-stylesheets` option
+
+Also flattens `@options.template_stylesheets` when parsing the
+command lines.
+
+Fixes #205
+Fixes #828 too
+
+https://github.com/ruby/rdoc/commit/857002a763
+---
+ lib/rdoc/generator/darkfish.rb                   |  4 ++--
+ lib/rdoc/generator/template/darkfish/_head.rhtml |  4 +---
+ lib/rdoc/options.rb                              |  2 +-
+ test/rdoc/test_rdoc_generator_darkfish.rb        | 14 ++++++++++++++
+ test/rdoc/test_rdoc_options.rb                   | 15 +++++++++++++++
+ 5 files changed, 33 insertions(+), 6 deletions(-)
+
+diff --git a/lib/rdoc/generator/darkfish.rb b/lib/rdoc/generator/darkfish.rb
+index b46861d009b2..60e0265e8c7c 100644
+--- a/lib/rdoc/generator/darkfish.rb
++++ b/lib/rdoc/generator/darkfish.rb
+@@ -220,8 +220,8 @@ def write_style_sheet
+       install_rdoc_static_file @template_dir + item, "./#{item}", options
+     end
+ 
+-    @options.template_stylesheets.each do |stylesheet|
+-      FileUtils.cp stylesheet, '.', options
++    unless @options.template_stylesheets.empty?
++      FileUtils.cp @options.template_stylesheets, '.', **options
+     end
+ 
+     Dir[(@template_dir + "{js,images}/**/*").to_s].each do |path|
+diff --git a/lib/rdoc/generator/template/darkfish/_head.rhtml b/lib/rdoc/generator/template/darkfish/_head.rhtml
+index e61fce1b9ae1..4f331245c3a8 100644
+--- a/lib/rdoc/generator/template/darkfish/_head.rhtml
++++ b/lib/rdoc/generator/template/darkfish/_head.rhtml
+@@ -15,8 +15,6 @@
+ 
+ <link href="<%= asset_rel_prefix %>/css/fonts.css" rel="stylesheet">
+ <link href="<%= asset_rel_prefix %>/css/rdoc.css" rel="stylesheet">
+-<%- if @options.template_stylesheets.flatten.any? then -%>
+-<%-   @options.template_stylesheets.flatten.each do |stylesheet| -%>
++<%- @options.template_stylesheets.each do |stylesheet| -%>
+ <link href="<%= asset_rel_prefix %>/<%= File.basename stylesheet %>" rel="stylesheet">
+-<%-   end -%>
+ <%- end -%>
+diff --git a/lib/rdoc/options.rb b/lib/rdoc/options.rb
+index 7a45a9c61098..792b473b7939 100644
+--- a/lib/rdoc/options.rb
++++ b/lib/rdoc/options.rb
+@@ -971,7 +971,7 @@ def parse argv
+       opt.on("--template-stylesheets=FILES", PathArray,
+              "Set (or add to) the list of files to",
+              "include with the html template.") do |value|
+-        @template_stylesheets << value
++        @template_stylesheets.concat value
+       end
+ 
+       opt.separator nil
+diff --git a/test/rdoc/test_rdoc_generator_darkfish.rb b/test/rdoc/test_rdoc_generator_darkfish.rb
+index f5858bce6e6d..3de4f8b6d678 100644
+--- a/test/rdoc/test_rdoc_generator_darkfish.rb
++++ b/test/rdoc/test_rdoc_generator_darkfish.rb
+@@ -220,6 +220,20 @@ def test_generated_method_with_html_tag_yield
+     assert_includes method_name, '{ |%&lt;&lt;script&gt;alert(&quot;atui&quot;)&lt;/script&gt;&gt;, yield_arg| ... }'
+   end
+ 
++  def test_template_stylesheets
++    css = Tempfile.create(%W'hoge .css', Dir.mktmpdir('tmp', '.'))
++    File.write(css, '')
++    base = File.basename(css)
++    refute_file(base)
++
++    @options.template_stylesheets << css
++
++    @g.generate
++
++    assert_file base
++    assert_include File.read('index.html'), %Q[href="./#{base}"]
++  end
++
+   ##
+   # Asserts that +filename+ has a link count greater than 1 if hard links to
+   # @tmpdir are supported.
+diff --git a/test/rdoc/test_rdoc_options.rb b/test/rdoc/test_rdoc_options.rb
+index 206ddeeb2c17..7c264c5e86b6 100644
+--- a/test/rdoc/test_rdoc_options.rb
++++ b/test/rdoc/test_rdoc_options.rb
+@@ -632,6 +632,21 @@ def test_parse_template_load_path
+     $LOAD_PATH.replace orig_LOAD_PATH
+   end
+ 
++  def test_parse_template_stylesheets
++    css = nil
++    Dir.mktmpdir do |dir|
++      css = File.join(dir, "hoge.css")
++      File.write(css, "")
++      out, err = capture_output do
++        @options.parse %W[--template-stylesheets #{css}]
++      end
++
++      assert_empty out
++      assert_empty err
++    end
++    assert_include @options.template_stylesheets, css
++  end
++
+   def test_parse_visibility
+     @options.parse %w[--visibility=public]
+     assert_equal :public, @options.visibility
