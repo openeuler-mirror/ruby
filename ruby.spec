@@ -33,7 +33,7 @@
 
 Name:      ruby
 Version:   %{ruby_version}
-Release:   119
+Release:   120
 Summary:   Object-oriented scripting language interpreter
 License:   (Ruby or BSD) and Public Domain and MIT and CC0 and zlib and UCD
 URL:       https://www.ruby-lang.org/en/
@@ -517,18 +517,20 @@ install -d %{buildroot}%{gem_dir}/gems/rdoc-%{rdoc_version}/lib
 mv %{buildroot}%{ruby_libdir}/rdoc* %{buildroot}%{gem_dir}/gems/rdoc-%{rdoc_version}/lib
 mv %{buildroot}%{gem_dir}/specifications/default/rdoc-%{rdoc_version}.gemspec %{buildroot}%{gem_dir}/specifications
 
-install -d %{buildroot}%{gem_dir}/gems/bigdecimal-%{bigdecimal_version}/lib
-install -d %{buildroot}%{_libdir}/gems/%{name}/bigdecimal-%{bigdecimal_version}
+mkdir -p %{buildroot}%{gem_dir}/gems/bigdecimal-%{bigdecimal_version}/lib
+mkdir -p %{buildroot}%{_libdir}/gems/%{name}/bigdecimal-%{bigdecimal_version}/bigdecimal
 mv %{buildroot}%{ruby_libdir}/bigdecimal %{buildroot}%{gem_dir}/gems/bigdecimal-%{bigdecimal_version}/lib
 mv %{buildroot}%{ruby_libarchdir}/bigdecimal.so %{buildroot}%{_libdir}/gems/%{name}/bigdecimal-%{bigdecimal_version}
+touch %{buildroot}%{_libdir}/gems/%{name}/bigdecimal-%{bigdecimal_version}/gem.build_complete
 mv %{buildroot}%{gem_dir}/specifications/default/bigdecimal-%{bigdecimal_version}.gemspec %{buildroot}%{gem_dir}/specifications
 ln -s %{gem_dir}/gems/bigdecimal-%{bigdecimal_version}/lib/bigdecimal %{buildroot}%{ruby_libdir}/bigdecimal
 ln -s %{_libdir}/gems/%{name}/bigdecimal-%{bigdecimal_version}/bigdecimal.so %{buildroot}%{ruby_libarchdir}/bigdecimal.so
 
-install -d %{buildroot}%{gem_dir}/gems/io-console-%{io_console_version}/lib
-install -d %{buildroot}%{_libdir}/gems/%{name}/io-console-%{io_console_version}/io
+mkdir -p %{buildroot}%{gem_dir}/gems/io-console-%{io_console_version}/lib
+mkdir -p %{buildroot}%{_libdir}/gems/%{name}/io-console-%{io_console_version}/io
 mv %{buildroot}%{ruby_libdir}/io %{buildroot}%{gem_dir}/gems/io-console-%{io_console_version}/lib
 mv %{buildroot}%{ruby_libarchdir}/io/console.so %{buildroot}%{_libdir}/gems/%{name}/io-console-%{io_console_version}/io
+touch %{buildroot}%{_libdir}/gems/%{name}/io-console-%{io_console_version}/gem.build_complete
 mv %{buildroot}%{gem_dir}/specifications/default/io-console-%{io_console_version}.gemspec %{buildroot}%{gem_dir}/specifications
 ln -s %{gem_dir}/gems/io-console-%{io_console_version}/lib/io %{buildroot}%{ruby_libdir}/io
 ln -s %{_libdir}/gems/%{name}/io-console-%{io_console_version}/io/console.so %{buildroot}%{ruby_libarchdir}/io/console.so
@@ -542,10 +544,11 @@ ln -s %{gem_dir}/gems/json-%{json_version}/lib/json.rb %{buildroot}%{ruby_libdir
 ln -s %{gem_dir}/gems/json-%{json_version}/lib/json %{buildroot}%{ruby_libdir}/json
 ln -s %{_libdir}/gems/%{name}/json-%{json_version}/json/ %{buildroot}%{ruby_libarchdir}/json
 
-install -d %{buildroot}%{gem_dir}/gems/openssl-%{openssl_version}/lib
-install -d %{buildroot}%{_libdir}/gems/%{name}/openssl-%{openssl_version}
+mkdir -p %{buildroot}%{gem_dir}/gems/openssl-%{openssl_version}/lib
+mkdir -p %{buildroot}%{_libdir}/gems/%{name}/openssl-%{openssl_version}
 mv %{buildroot}%{ruby_libdir}/openssl* %{buildroot}%{gem_dir}/gems/openssl-%{openssl_version}/lib
 mv %{buildroot}%{ruby_libarchdir}/openssl.so %{buildroot}%{_libdir}/gems/%{name}/openssl-%{openssl_version}/
+touch %{buildroot}%{_libdir}/gems/%{name}/openssl-%{openssl_version}/gem.build_complete
 mv %{buildroot}%{gem_dir}/specifications/default/openssl-%{openssl_version}.gemspec %{buildroot}%{gem_dir}/specifications
 
 install -d %{buildroot}%{ruby_libdir}/openssl
@@ -554,10 +557,11 @@ find %{buildroot}%{gem_dir}/gems/openssl-%{openssl_version}/lib/openssl -maxdept
 ln -s %{gem_dir}/gems/openssl-%{openssl_version}/lib/openssl.rb %{buildroot}%{ruby_libdir}/openssl.rb
 ln -s %{_libdir}/gems/%{name}/openssl-%{openssl_version}/openssl.so %{buildroot}%{ruby_libarchdir}/openssl.so
 
-install -d %{buildroot}%{gem_dir}/gems/psych-%{psych_version}/lib
-install -d %{buildroot}%{_libdir}/gems/%{name}/psych-%{psych_version}
+mkdir -p %{buildroot}%{gem_dir}/gems/psych-%{psych_version}/lib
+mkdir -p %{buildroot}%{_libdir}/gems/%{name}/psych-%{psych_version}
 mv %{buildroot}%{ruby_libdir}/psych* %{buildroot}%{gem_dir}/gems/psych-%{psych_version}/lib
 mv %{buildroot}%{ruby_libarchdir}/psych.so %{buildroot}%{_libdir}/gems/%{name}/psych-%{psych_version}/
+touch %{buildroot}%{_libdir}/gems/%{name}/psych-%{psych_version}/gem.build_complete
 mv %{buildroot}%{gem_dir}/specifications/default/psych-%{psych_version}.gemspec %{buildroot}%{gem_dir}/specifications
 ln -s %{gem_dir}/gems/psych-%{psych_version}/lib/psych %{buildroot}%{ruby_libdir}/psych
 ln -s %{gem_dir}/gems/psych-%{psych_version}/lib/psych.rb %{buildroot}%{ruby_libdir}/psych.rb
@@ -757,7 +761,7 @@ make runruby TESTRUN_SCRIPT=%{SOURCE13}
 
 %files irb
 %{_bindir}/irb
-%{ruby_libdir}/{irb.rb,irb}
+%{ruby_libdir}/irb*
 
 %files -n rubygem-rdoc
 %{_bindir}/{rdoc,ri}
@@ -774,8 +778,8 @@ make runruby TESTRUN_SCRIPT=%{SOURCE13}
 %{_mandir}/man1/ruby*
 
 %files -n rubygem-bigdecimal
-%{ruby_libdir}/bigdecimal
-%{ruby_libarchdir}/bigdecimal.so
+%{ruby_libdir}/bigdecimal*
+%{ruby_libarchdir}/bigdecimal.so*
 %{_libdir}/gems/%{name}/bigdecimal-3.0.0
 %{gem_dir}/gems/bigdecimal-3.0.0
 %{gem_dir}/specifications/bigdecimal-3.0.0.gemspec
@@ -1178,6 +1182,9 @@ make runruby TESTRUN_SCRIPT=%{SOURCE13}
 %doc %{gem_dir}/gems/typeprof-%{typeprof_version}/testbed
 
 %changelog
+* Wed Mar 02 2022 tianwei12 <tianwei12@h-partners.com> - 3.0.3-120
+- fix rubygem-rspec-support rubygem-open4 build failed
+
 * Wed Feb 23 2022 shixuantong <shixuantong@h-partners.com> - 3.0.3-119
 - Add tests for `--template-stylesheets` option
 
