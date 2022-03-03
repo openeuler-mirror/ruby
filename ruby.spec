@@ -33,7 +33,7 @@
 
 Name:      ruby
 Version:   %{ruby_version}
-Release:   121
+Release:   122
 Summary:   Object-oriented scripting language interpreter
 License:   (Ruby or BSD) and Public Domain and MIT and CC0 and zlib and UCD
 URL:       https://www.ruby-lang.org/en/
@@ -657,10 +657,10 @@ make runruby TESTRUN_SCRIPT=%{SOURCE13}
 %exclude %{ruby_libdir}/psych.rb
 %exclude %{ruby_libdir}/irb
 
-%{_bindir}/racc
+%exclude %{_bindir}/racc
 %{gem_dir}/gems/erb-2.2.0/libexec/erb
 %{gem_dir}/gems/irb-1.3.5/exe/irb
-%{gem_dir}/gems/racc-1.5.2/bin/racc
+%exclude %{gem_dir}/gems/racc-1.5.2/bin
 %{ruby_libdir}/benchmark/version.rb
 %{ruby_libdir}/csv/core_ext/array.rb
 %{ruby_libdir}/csv/core_ext/string.rb
@@ -1182,6 +1182,9 @@ make runruby TESTRUN_SCRIPT=%{SOURCE13}
 %doc %{gem_dir}/gems/typeprof-%{typeprof_version}/testbed
 
 %changelog
+* Thu Mar 03 2022 tianwei12 <tianwei12@h-partners.com> - 3.0.3-122
+- fix conflict with rubygem-racc
+
 * Mon Feb 28 2022 tianwei12 <tianwei12@h-partners.com> - 3.0.3-121
 - fix rubygem-rspec-support,rubygem-open4 build failed
 
