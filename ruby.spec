@@ -33,7 +33,7 @@
 
 Name:      ruby
 Version:   %{ruby_version}
-Release:   122
+Release:   123
 Summary:   Object-oriented scripting language interpreter
 License:   (Ruby or BSD) and Public Domain and MIT and CC0 and zlib and UCD
 URL:       https://www.ruby-lang.org/en/
@@ -603,7 +603,11 @@ sed -i 's/^/%lang(ja) /' .ruby-doc.ja
 touch abrt.rb
 
 make runruby TESTRUN_SCRIPT="--enable-gems %{SOURCE12}"
+#libruby.so dose not include stapsdt.base and note.stapstd in loongarch64 architecture
+#systemtap-sdt-devel should be upgraded 
+%ifnarch loongarch64
 make runruby TESTRUN_SCRIPT=%{SOURCE13}
+%endif
 
 %files
 %license BSDL COPYING GPL LEGAL
@@ -1182,6 +1186,9 @@ make runruby TESTRUN_SCRIPT=%{SOURCE13}
 %doc %{gem_dir}/gems/typeprof-%{typeprof_version}/testbed
 
 %changelog
+* Fri Apr 22 2022 Ge Wang <wangge20@h-partners.com> - 3.0.3-123
+- add loongarch64 architecture support
+
 * Thu Mar 03 2022 tianwei12 <tianwei12@h-partners.com> - 3.0.3-122
 - fix conflict with rubygem-racc
 
